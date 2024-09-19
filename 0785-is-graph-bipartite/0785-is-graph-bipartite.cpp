@@ -8,13 +8,13 @@ public:
         {
              if(col[i]==0) 
              {
-                 if(dfs(graph,col,i,1)==false) 
-                 return false;
+                 dfs(graph,col,i,1);
              }
         }
-        return true;
+      if(temp==1)  return false;
+        else return true;
     }
-    bool dfs(vector<vector<int>>& graph,vector<int>&col,int source,int color)
+    void dfs(vector<vector<int>>& graph,vector<int>&col,int source,int color)
     {
             col[source]=color;
             for(int i=0;i<graph[source].size();i++)
@@ -22,13 +22,20 @@ public:
                 int child=graph[source][i];
                 if(col[child]==0)
                 {
-                   if(dfs(graph,col,child,3-color)==false)return false;
+                    if(col[source]==1)
+                    {
+                        dfs(graph,col,child,2);
+                    }
+                    else
+                    {
+                        dfs(graph,col,child,1); 
+                    }
                 }
-                else if(col[child]==col[source])
+                else if(col[source]==col[child])
                 {
-                    return false;
+                    temp=1;
                 }
             }
-        return true;
+       
     }
 };
